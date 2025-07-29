@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"log"
+	"time"
 
 	"github.com/flp-fernandes/standalone-api-ports-and-adapters/internal/domain"
 )
@@ -16,6 +17,8 @@ func NewUserService(repo domain.UserRepository) *UserService {
 }
 
 func (s *UserService) PrintAllUsers(ctx context.Context) error {
+	log.Println("Started UserService.PrintAllOrders")
+
 	users, err := s.repo.ListUsers(ctx)
 	if err != nil {
 		return err
@@ -24,6 +27,8 @@ func (s *UserService) PrintAllUsers(ctx context.Context) error {
 	for _, u := range users {
 		log.Printf("User: %d - %s", u.ID, u.Name)
 	}
+
+	time.Sleep(15 * time.Second)
 
 	return nil
 }
